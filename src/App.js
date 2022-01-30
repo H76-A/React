@@ -20,6 +20,7 @@ function App() {
   const [turns, setTurns] = useState(0);
   const [choise1 , setChoise1]=useState(null)
   const [choise2, setChoise2]= useState(null)
+  const [disabled , setDisabled] = useState(false)
   
   
   // Shuffle Cards
@@ -42,6 +43,7 @@ function App() {
     // compare Cards
     useEffect(()=>{
       if(choise1 && choise2){
+         setDisabled(true)
         if(choise1.src === choise2.src){
           setCards(prevCards=>{
             return prevCards.map(card=>{
@@ -58,20 +60,26 @@ function App() {
         }
         else{
           console.log('cards dont match')
-          resetTurn()
+          setTimeout(()=>resetTurn(),1000)
         }
        
       }
       
     }, [choise1 , choise2])
+  
+      useEffect(()=>{
+        shuffleCards()
+        setChoise1(null)
+        setChoise2(null)
+      },[])
 
-    console.log(cards)
     
     // reset Turns 
     const resetTurn = ()=>{
       setChoise1(null)
       setChoise2(null)
       setTurns(prevTurns=>prevTurns+1)
+      setDisabled(false)
     }
   return (
     <div className="App">
@@ -86,11 +94,15 @@ function App() {
           card={card} 
           turns={turns}
           handleChoise={handleChoise}
+          flipped = {card=== choise1 || card === choise2 || card.matched}
+          disabled = {disabled}
         /> 
         
         ))}
+       
       </div>
-      
+     
+      <p style={{textAlign:"center"}}> Truns: {turns}</p> 
     </div>
   );
 }

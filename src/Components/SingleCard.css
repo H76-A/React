@@ -10,3 +10,26 @@
     border: 2px solid #fff;
     border-radius: 6px;
 }
+
+/*Front of the card */
+.card .front-card{
+    
+    position: absolute;
+    transform: rotateY(90deg);
+    transition: all ease-in 0.2s;
+}
+.fliped .front-card{
+    transform: rotateY(0deg);
+    transition-delay: 0.2s;
+}
+
+/*Back of the Card */
+.card .back-card{
+    transition: all ease-in 0.2s;
+    transition-delay: 0.2s;
+}
+
+.fliped .back-card{
+    transform: rotateY(90deg);
+    transition-delay: 0;
+}

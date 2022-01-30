@@ -3,12 +3,14 @@ import '../Components/SingleCard.css'
 
 
 
-export default function SingleCard({card, turns,handleChoise }) {
+export default function SingleCard({card, turns,handleChoise , flipped ,disabled}) {
 
     // Handles 
 
 const handleClick=()=>{
+  if(!disabled){
     handleChoise(card)
+  }
 }
 
 
@@ -16,8 +18,8 @@ const handleClick=()=>{
     <div className="SingleCards">
       
           <div className="card" >
-            <div>
-              <img className="front-card" src={card.src} alt="front of card" />
+            <div className={flipped ? "fliped":""}>
+            <img className="front-card" src={card.src} alt="front of card" />
               <img
                 onClick={handleClick}
                 className="back-card"
@@ -26,7 +28,6 @@ const handleClick=()=>{
               />
             </div>
       </div>
-      <p> Truns: {turns}</p>
     </div>
   );
 }
